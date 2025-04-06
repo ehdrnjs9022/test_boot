@@ -8,12 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
-@EnableWebSecurity
 public class SecurityConfigure {
-
-	
-	
-	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}

@@ -8,6 +8,7 @@ import com.kh.spring.member.exception.SignUpException;
 import com.kh.spring.member.model.dao.MemberMapper;
 import com.kh.spring.member.model.dto.MemberDTO;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 		private final PasswordEncoder passwordEncoder;
 		
 		@Override
-		public MemberDTO login(MemberDTO member) {
+		public MemberDTO login(MemberDTO member , HttpSession session) {
 			
 			validator.InvalidValue(member);
 			
@@ -47,5 +48,6 @@ public class MemberServiceImpl implements MemberService {
 			}
 				return result;
 		}
+		
 	
 }	

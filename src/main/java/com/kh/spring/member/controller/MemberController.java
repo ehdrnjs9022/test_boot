@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kh.spring.member.model.dto.MemberDTO;
 import com.kh.spring.member.model.service.MemberService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,12 +23,12 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 
 	private final MemberService memberService;
-	
+	 
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody MemberDTO member ) {
+	public ResponseEntity<?> login(@RequestBody MemberDTO member , HttpSession session) {
 		
-		MemberDTO loginMember = memberService.login(member);
-		 log.info("응답 {} " , member);
+		MemberDTO loginMember = memberService.login(member, session);
+		session.setAttribute("loginMember", loginMember);
 		return ResponseEntity.ok(loginMember);
 	
 	}
@@ -39,6 +40,14 @@ public class MemberController {
 
 		return result;
 	}
+	
+	@PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpSession session) {
+        session.invalidate();
+        return ResponseEntity.ok("로그아웃 성공");
+    }
+	
+	
 	
 }
 	
